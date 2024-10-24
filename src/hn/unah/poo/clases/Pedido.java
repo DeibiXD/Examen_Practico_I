@@ -8,7 +8,10 @@ import hn.unah.poo.clases.tarjetas.PagoTarjetaCredito;
 
 public class Pedido {
     private LinkedList<Producto> lista_productos = new LinkedList<>();
-    private double montoPedido;
+
+    public Pedido(LinkedList<Producto> lista_productos) {
+        this.lista_productos = lista_productos;
+    }
 
     public void agregarProductos(Producto producto,int cantidad){
         //Verifiar que hay suficiente stock
@@ -19,7 +22,6 @@ public class Pedido {
             for (int i = 0; i<cantidad; i++){
             lista_productos.add(producto);
             producto.setStock(producto.getStock()-1);//Reduciendo el stock por iteracion
-            this.setMontoPedido(this.getMontoPedido()+producto.getPrecio());//Agregando el monto al pedido
         }
         }
 
@@ -27,7 +29,7 @@ public class Pedido {
 
     public void procesar_pedido(PagoPaypal pagoPaypal){
         int fecha_actual = 2024;
-        if (pagoPaypal.procesarPago(this.montoPedido)){
+        if (pagoPaypal.procesarPago(this.calcularTotal())){
         for (Producto producto : this.lista_productos) {
             if (producto instanceof ProductoAlimenticio){
                 ProductoAlimenticio nvProductoAlimenticio = (ProductoAlimenticio) producto;
@@ -44,7 +46,7 @@ public class Pedido {
 
     public void procesar_pedido(PagoTarjetaCredito tarjetaCredito){
         int fecha_actual = 2024;
-        if (tarjetaCredito.procesarPago(this.montoPedido)){
+        if (tarjetaCredito.procesarPago(this.calcularTotal())){
         for (Producto producto : this.lista_productos) {
             if (producto instanceof ProductoAlimenticio){
                 ProductoAlimenticio nvProductoAlimenticio = (ProductoAlimenticio) producto;
@@ -59,21 +61,15 @@ public class Pedido {
     }
     }
 
-    public LinkedList<Producto> getLista_productos() {
-        return lista_productos;
+    public double calcularTotal (){
+        double total=0;
+        for (Producto producto : lista_productos) {
+            total = total+producto.getPrecio();
+        }
+        return total;
     }
 
-    public void setLista_productos(LinkedList<Producto> lista_productos) {
-        this.lista_productos = lista_productos;
-    }
-
-    public double getMontoPedido() {
-        return montoPedido;
-    }
-
-    public void setMontoPedido(double montoPedido) {
-        this.montoPedido = montoPedido;
-    }
+    
 
     
 }
