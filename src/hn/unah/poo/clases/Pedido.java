@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import hn.unah.poo.clases.tarjetas.PagoPaypal;
 import hn.unah.poo.clases.tarjetas.PagoTarjetaCredito;
-import hn.unah.poo.interfaces.IMetodooPago;
+
 
 public class Pedido {
     private LinkedList<Producto> lista_productos = new LinkedList<>();
@@ -37,11 +37,26 @@ public class Pedido {
                 }
             }
         }
+    } else {
+        System.out.println("Error procesando el pedido");
     }
     }
 
     public void procesar_pedido(PagoTarjetaCredito tarjetaCredito){
-
+        int fecha_actual = 2024;
+        if (tarjetaCredito.procesarPago(this.montoPedido)){
+        for (Producto producto : this.lista_productos) {
+            if (producto instanceof ProductoAlimenticio){
+                ProductoAlimenticio nvProductoAlimenticio = (ProductoAlimenticio) producto;
+                if (nvProductoAlimenticio.getFechaExpiracion()<fecha_actual){
+                    System.out.println("Este producto esta vencido, quitando de pedido");
+                    this.lista_productos.remove(producto);
+                }
+            }
+        }
+    } else {
+        System.out.println("Error procesando el pedido.");
+    }
     }
 
     public LinkedList<Producto> getLista_productos() {
