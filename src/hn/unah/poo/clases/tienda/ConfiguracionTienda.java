@@ -15,10 +15,11 @@ public class ConfiguracionTienda {
     }
 
 
-    public ConfiguracionTienda crearInstancia (String nombre, String direccion, String moneda){
+    public static ConfiguracionTienda crearInstancia (String nombre, String direccion, String moneda){
         if (ConfiguracionTienda.counter==0){
             ConfiguracionTienda confTienda = new ConfiguracionTienda(nombre,direccion,moneda);
             ConfiguracionTienda.counter++;
+            System.out.println("Se creo la tienda exitosamente");
             return confTienda;
         }else {
             System.out.println("Ya ha creado una tienda");
@@ -56,4 +57,12 @@ public class ConfiguracionTienda {
         this.moneda = moneda;
     }
 
+
+    @Override
+    public String toString() {
+        return "ConfiguracionTienda [nombre_Tienda=" + nombre_Tienda + ", direccion=" + direccion + ", moneda=" + moneda
+                + "]";
+    }
+
+    
 }
