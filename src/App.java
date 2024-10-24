@@ -44,7 +44,7 @@ public class App {
         }
         //Creando y accediendo una tienda
         ConfiguracionTienda nvaTienda =ConfiguracionTienda.crearInstancia("Mercadito", "Las lomas", "Lempira");
-        ConfiguracionTienda nvaTienda2 =ConfiguracionTienda.crearInstancia("Mercadito", "Las lomas", "Lempira");
+        ConfiguracionTienda nvaTienda2 =ConfiguracionTienda.crearInstancia("Mercadito", "Las lomas", "Lempira");//No se va crear otra tienda
         
         System.out.println(nvaTienda.toString());
     }

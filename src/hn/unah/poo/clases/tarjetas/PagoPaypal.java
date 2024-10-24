@@ -4,10 +4,11 @@ import hn.unah.poo.interfaces.IMetodooPago;
 
 public class PagoPaypal implements IMetodooPago{
 
+    private String cuenta;
+
     @Override
     public boolean procesarPago(double monto) {//Verificar el monto del pedido
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'procesarPago'");
+        return true;
     }
 
     
